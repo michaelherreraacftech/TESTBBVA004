@@ -52,26 +52,13 @@
         .note{background:#fff3cd;border:1px solid #ffeaa7;padding:10px;border-radius:6px;margin-top:15px;font-size:11px;color:#856404}
         @media print{
             .nav-header{display:none!important}
-            body{background:white!important;font-size:10px!important;margin:0!important;padding:15px!important}
+            body{background:white!important;font-size:10px!important;margin:0!important;padding:20px!important}
             .container{box-shadow:none!important;max-width:100%!important;padding:0!important;margin:0!important}
-            .chart-box{height:220px!important;page-break-inside:avoid!important;margin-bottom:15px!important}
-            .chart-box.large{height:280px!important;page-break-inside:avoid!important}
-            .chart-box canvas{max-height:180px!important;max-width:100%!important;width:100%!important;height:auto!important}
-            .chart-box.large canvas{max-height:240px!important;max-width:100%!important;width:100%!important;height:auto!important}
-            .chart-container-two{page-break-inside:avoid!important;margin:10px 0!important}
-            .chart-container-four{page-break-inside:avoid!important;margin:10px 0!important}
+            .chart-box{height:250px!important;page-break-inside:avoid!important}
             .pdf-header{display:block!important}
             body{-webkit-print-color-adjust:exact!important;color-adjust:exact!important}
             .pass,.warning,.fail{background:#2ecc71!important;color:white!important}
-            .results-table{page-break-inside:avoid!important;font-size:9px!important}
-            .analysis-section{page-break-inside:avoid!important;margin:10px 0!important}
-            .critical-warning{page-break-inside:avoid!important;margin:10px 0!important}
-            .success-highlight{page-break-inside:avoid!important;margin:10px 0!important}
-            .recommendations{page-break-inside:avoid!important;margin:10px 0!important}
-            .executive-summary{page-break-inside:avoid!important;margin:10px 0!important}
-            h1,h2{page-break-after:avoid!important}
-            h3{page-break-after:avoid!important;page-break-inside:avoid!important}
-            @page{margin:0.3in;size:A4}
+            @page{margin:0.4in}
         }
     </style>
 </head>
@@ -99,7 +86,7 @@
         <h1>Análisis de Capacidad Sistema Q-Flow - Entorno QA-DESA</h1>
         <p style="text-align:center;color:#7f8c8d;font-style:italic;margin-bottom:25px">
             Evaluación Completa de Rendimiento: 12 a 60 Usuarios Concurrentes<br>
-            <strong>Script TAfterEnq Activo</strong>
+            <strong>Script TAfterEnq Activo - TESTBBVA004</strong>
         </p>
 
         <div class="executive-summary">
@@ -143,12 +130,12 @@
                     <td><strong>TESTBBVA004</strong></td>
                     <td>12</td>
                     <td><span class="phase-optimal">ÓPTIMA</span></td>
-                    <td>3,720</td>
-                    <td>8</td>
-                    <td>0.22%</td>
-                    <td>465</td>
-                    <td>28,650</td>
-                    <td>12.1</td>
+                    <td>3,600</td>
+                    <td>11</td>
+                    <td>0.31%</td>
+                    <td>335</td>
+                    <td>8,870</td>
+                    <td>14.6</td>
                     <td><span class="pass">PASS</span></td>
                 </tr>
                 <tr>
@@ -156,17 +143,17 @@
                     <td>24</td>
                     <td><span class="phase-optimal">ÓPTIMA</span></td>
                     <td>7,392</td>
-                    <td>677</td>
-                    <td>9.16%</td>
-                    <td>595</td>
-                    <td>69,902</td>
-                    <td>17.9</td>
+                    <td>85</td>
+                    <td>1.15%</td>
+                    <td>417</td>
+                    <td>4,971</td>
+                    <td>26.4</td>
                     <td><span class="pass">PASS</span></td>
                 </tr>
                 <tr>
                     <td><strong>TESTBBVA004</strong></td>
                     <td>36</td>
-                    <td><span class="phase-optimal">ÓPTIMA</span></td>
+                    <td><span class="phase-optimal">MÁXIMA</span></td>
                     <td>11,088</td>
                     <td>107</td>
                     <td>0.96%</td>
@@ -178,22 +165,22 @@
                 <tr>
                     <td><strong>TESTBBVA004</strong></td>
                     <td>48</td>
-                    <td><span class="phase-warning">LÍMITE</span></td>
+                    <td><span class="phase-warning">SATURACIÓN</span></td>
                     <td>14,784</td>
                     <td>2,011</td>
                     <td>13.60%</td>
                     <td>845</td>
                     <td>20,693</td>
                     <td>35.4</td>
-                    <td><span class="warning">PASS*</span></td>
+                    <td><span class="fail">FAIL</span></td>
                 </tr>
                 <tr>
                     <td><strong>TESTBBVA004</strong></td>
                     <td>60</td>
-                    <td><span class="phase-critical">CRÍTICA</span></td>
+                    <td><span class="phase-critical">COLAPSO</span></td>
                     <td>18,480</td>
-                    <td>5,604</td>
-                    <td>30.30%</td>
+                    <td>5,626</td>
+                    <td>30.50%</td>
                     <td>1,340</td>
                     <td>21,083</td>
                     <td>32.4</td>
@@ -230,11 +217,11 @@
         
         <div class="chart-container-four">
             <div class="chart-box">
-                <div class="chart-title">SQL Server - Uso de CPU</div>
+                <div class="chart-title">SQL Server - Uso de CPU Promedio</div>
                 <canvas id="sqlCpuChart"></canvas>
             </div>
             <div class="chart-box">
-                <div class="chart-title">SQL Server - Uso de Memoria</div>
+                <div class="chart-title">SQL Server - Actividad de Memoria</div>
                 <canvas id="sqlMemoryChart"></canvas>
             </div>
             <div class="chart-box">
@@ -242,8 +229,8 @@
                 <canvas id="iisCpuChart"></canvas>
             </div>
             <div class="chart-box">
-                <div class="chart-title">IIS Servers - Uso Promedio de Memoria</div>
-                <canvas id="iisMemoryChart"></canvas>
+                <div class="chart-title">IIS Servers - Distribución de Carga</div>
+                <canvas id="iisDistributionChart"></canvas>
             </div>
         </div>
 
@@ -253,30 +240,33 @@
             <h3>✅ Fase Óptima (12-36 Usuarios)</h3>
             <ul>
                 <li><strong>Sweet Spot Identificado:</strong> 36 usuarios representa el punto óptimo de rendimiento (39.1 TPS, 0.96% error)</li>
-                <li><strong>Escalabilidad Excelente:</strong> Throughput incrementa de manera eficiente hasta 36 usuarios</li>
-                <li><strong>Confiabilidad Superior:</strong> Tasas de error consistentemente bajas ≤ 9.16%</li>
-                <li><strong>Auto-optimización:</strong> El sistema mejora su rendimiento con 36 usuarios vs 24</li>
+                <li><strong>Escalabilidad Extraordinaria:</strong> Throughput incrementa de manera eficiente hasta 36 usuarios (168% aumento vs 12 usuarios)</li>
+                <li><strong>Auto-optimización del Sistema:</strong> Paradójicamente, 36 usuarios tiene menor tasa de error que 24 usuarios (0.96% vs 1.15%)</li>
+                <li><strong>Latencia Estable:</strong> Tiempo de respuesta se mantiene controlado (335-417ms)</li>
+                <li><strong>Hardware Equilibrado:</strong> SQL Server y servidores IIS operan dentro de rangos aceptables</li>
             </ul>
         </div>
 
         <div class="critical-warning">
-            <h3>⚠️ Fase Límite (48 Usuarios)</h3>
+            <h3>⚠️ Fase de Saturación (48 Usuarios)</h3>
             <ul>
-                <li><strong>Inicio de Saturación:</strong> Salto a 13.60% de errores indica límite del sistema</li>
-                <li><strong>Degradación Notable:</strong> Throughput disminuye (35.4 TPS vs 39.1 TPS con 36 usuarios)</li>
-                <li><strong>Latencia Incrementada:</strong> Tiempo promedio duplica (845ms vs 406ms)</li>
-                <li><strong>SQL Server Presión:</strong> CPU sostenido al 97% durante la prueba</li>
+                <li><strong>Punto de Quiebre Definido:</strong> Salto dramático a 13.60% de errores (14x incremento vs 36 usuarios)</li>
+                <li><strong>Degradación del Throughput:</strong> Primera vez que el TPS disminuye (35.4 vs 39.1 TPS)</li>
+                <li><strong>Latencia Crítica:</strong> Tiempo promedio se duplica (845ms vs 406ms)</li>
+                <li><strong>SQL Server Saturado:</strong> CPU sostenido 80-97% durante toda la prueba</li>
+                <li><strong>Tiempo Máximo Extremo:</strong> Picos de hasta 20.7 segundos indican timeouts del sistema</li>
             </ul>
         </div>
 
         <div class="critical-warning">
-            <h3>🚨 Fase Crítica (60 Usuarios)</h3>
+            <h3>🚨 Fase de Colapso Total (60 Usuarios)</h3>
             <ul>
-                <li><strong>Colapso Total:</strong> 30.30% de errores - sistema completamente saturado</li>
-                <li><strong>Throughput Colapsado:</strong> Rendimiento menor que con 48 usuarios (32.4 TPS)</li>
-                <li><strong>Latencia Extrema:</strong> 1,340ms promedio (+230% vs fase óptima)</li>
-                <li><strong>Hardware Saturado:</strong> SQL Server al 100% CPU sostenido</li>
-                <li><strong>Errores de Sistema:</strong> Multiple conversation handle errors y process update failures</li>
+                <li><strong>Colapso Confirmado:</strong> 30.50% de errores - sistema completamente inoperativo</li>
+                <li><strong>Throughput Colapsado:</strong> Menor rendimiento que 48 usuarios (32.4 vs 35.4 TPS)</li>
+                <li><strong>Latencia Catastrófica:</strong> 1,340ms promedio (+230% vs fase óptima)</li>
+                <li><strong>Hardware al Límite:</strong> SQL Server al 100% CPU sostenido, actividad de memoria crítica</li>
+                <li><strong>Tiempo Máximo Record:</strong> 21.1 segundos máximo, sistema no responde</li>
+                <li><strong>Duración Extendida:</strong> Prueba de 10 minutos vs 5 minutos, sistema no se recupera</li>
             </ul>
         </div>
 
@@ -291,6 +281,7 @@
                         <li><strong>CPU:</strong> AMD EPYC 7763 64-Core (2 Core, 4 Logical)</li>
                         <li><strong>RAM:</strong> 7.95 GB Total (2.07 GB Disponible)</li>
                         <li><strong>Virtualización:</strong> Hyper-V Virtual Machine</li>
+                        <li><strong>Rol:</strong> Base de Datos Q-Flow (Cuello de botella principal)</li>
                     </ul>
                 </div>
                 <div class="server">
@@ -300,6 +291,7 @@
                         <li><strong>CPU:</strong> AMD EPYC 7763 64-Core (2 Core, 4 Logical)</li>
                         <li><strong>RAM:</strong> 7.95 GB Total (3.38 GB Disponible)</li>
                         <li><strong>Rol:</strong> Web Services Q-Flow</li>
+                        <li><strong>Carga:</strong> Subutilizado en comparación con IIS2</li>
                     </ul>
                 </div>
                 <div class="server">
@@ -309,61 +301,71 @@
                         <li><strong>CPU:</strong> AMD EPYC 7763 64-Core (2 Core, 4 Logical)</li>
                         <li><strong>RAM:</strong> 7.95 GB Total (4.49 GB Disponible)</li>
                         <li><strong>Rol:</strong> Web Services Q-Flow</li>
+                        <li><strong>Carga:</strong> Sobrecargado, requiere balanceamiento</li>
                     </ul>
                 </div>
             </div>
             
             <div class="note">
-                <strong>Nota:</strong> Todas las pruebas ejecutadas con <strong>Script TAfterEnq Activo</strong>, demás scripts inactivos para evaluación individual de capacidad.
+                <strong>Nota:</strong> Todas las pruebas ejecutadas con <strong>Script TAfterEnq Activo</strong> exclusivamente, demás scripts inactivos para evaluación individual de capacidad.
             </div>
         </div>
 
         <div class="analysis-section">
-            <h3>📋 Observaciones Técnicas Clave</h3>
+            <h3>📋 Hallazgos Técnicos Clave</h3>
             <ul>
-                <li><strong>Script Eficiente:</strong> TAfterEnq demuestra excelente escalabilidad y rendimiento</li>
-                <li><strong>Sweet Spot Definido:</strong> 36 usuarios representa el punto óptimo de operación</li>
-                <li><strong>SQL Server Limitante:</strong> Principal cuello de botella en cargas altas</li>
-                <li><strong>Comportamiento Predictivo:</strong> Degradación gradual hasta colapso en 60 usuarios</li>
-                <li><strong>Errores de Sistema:</strong> Conversation handle failures y process update errors en alta carga</li>
-                <li><strong>Auto-optimización:</strong> Sistema se auto-ajusta mejorando rendimiento en 36 vs 24 usuarios</li>
-                <li><strong>Límite Absoluto:</strong> 48 usuarios como máximo operacional con advertencias</li>
+                <li><strong>Patrón de Escalamiento No-Lineal:</strong> Sistema mejora entre 24-36 usuarios antes del colapso</li>
+                <li><strong>SQL Server como Limitante:</strong> Único cuello de botella identificado en todas las pruebas</li>
+                <li><strong>Punto de Quiebre Abrupto:</strong> Cambio dramático entre 36 usuarios (PASS) y 48 usuarios (FAIL)</li>
+                <li><strong>Desbalance de Carga IIS:</strong> IIS2 consistentemente más cargado que IIS1</li>
+                <li><strong>Script TAfterEnq Optimizado:</strong> Demuestra excelente eficiencia hasta el límite del hardware</li>
+                <li><strong>Comportamiento Predictivo:</strong> Degradación gradual desde 48 hasta colapso total en 60</li>
+                <li><strong>Memoria como Factor Secundario:</strong> CPU es el limitante principal, no la memoria</li>
+                <li><strong>Timeouts del Sistema:</strong> Tiempos máximos indican timeouts de aplicación y BD</li>
             </ul>
             
             <h4>📄 Evidencia de Errores del Sistema:</h4>
-            <p style="margin:10px 0;font-size:11px">Durante las pruebas de alta carga se registraron errores críticos que confirman la saturación:</p>
+            <p style="margin:10px 0;font-size:11px">Durante las pruebas de alta carga se registraron errores críticos que confirman la saturación del sistema:</p>
             
             <div style="background:white;padding:15px;border-radius:6px;margin:15px 0;border-left:3px solid #e74c3c">
                 <h5 style="margin-top:0;color:#e74c3c;font-size:12px">🔴 Error de Conversation Handle - Event ID: 2460800</h5>
                 <div style="background:#f8f9fa;padding:8px;border-radius:4px;font-family:monospace;font-size:9px;margin:5px 0">
                     <strong>Event Time:</strong> 6/3/2025 5:57:17 PM<br>
                     <strong>Source:</strong> qf.ProcessUpdateSkilledAgents<br>
-                    <strong>Details:</strong> The conversation handle "EA855D75-D640-F011-9511-6045BBF036F1" is not found.
+                    <strong>Details:</strong> The conversation handle "EA855D75-D640-F011-9511-6045BDF036F1" is not found.
                 </div>
             </div>
             
             <div style="background:white;padding:15px;border-radius:6px;margin:15px 0;border-left:3px solid #e74c3c">
-                <h5 style="margin-top:0;color:#e74c3c;font-size:12px">🔴 Error de Process Update - Event ID: 2460804</h5>
+                <h5 style="margin-top:0;color:#e74c3c;font-size:12px">🔴 Error de QFlow Library Exception - Event ID: 2460763</h5>
                 <div style="background:#f8f9fa;padding:8px;border-radius:4px;font-family:monospace;font-size:9px;margin:5px 0">
-                    <strong>Event Time:</strong> 6/3/2025 5:57:19 PM<br>
-                    <strong>Source:</strong> ReceptionConsole.aspx.vb<br>
-                    <strong>Details:</strong> The user is signed out at QFlow.Library.Service.Enqueue processingAgentAssignmentType, Int32 proceduralId
+                    <strong>Event Time:</strong> 6/3/2025 5:55:58 PM<br>
+                    <strong>Source:</strong> ReceptionPoint.SaveTicket<br>
+                    <strong>Details:</strong> Transaction (Process ID 91) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
                 </div>
             </div>
             
-            <p style="margin:10px 0;font-size:11px">Se registraron múltiples instancias de estos errores durante las pruebas de 48 y 60 usuarios, confirmando la saturación del sistema.</p>
+            <div style="background:white;padding:15px;border-radius:6px;margin:15px 0;border-left:3px solid #e74c3c">
+                <h5 style="margin-top:0;color:#e74c3c;font-size:12px">🔴 Error de SqlClient SqlException - Event ID: 2460763</h5>
+                <div style="background:#f8f9fa;padding:8px;border-radius:4px;font-family:monospace;font-size:9px;margin:5px 0">
+                    <strong>Event Time:</strong> 6/3/2025 5:55:58 PM<br>
+                    <strong>Source:</strong> System.Data.SqlClient.SqlException<br>
+                    <strong>Details:</strong> SqlDataReader.dataStream. Boolean callersHasConnectionLock. Boolean asyncClose)
+                </div>
+            </div>
             
-            <p style="margin:10px 0;font-size:11px">Se adjunta archivo de <strong>Log de eventos Q-Flow 03-06-2025.csv</strong> que contiene el registro completo de los eventos del sistema durante las pruebas, incluyendo estos y otros errores de conversation handle, process update failures y errores de conexión para validación en detalle.</p>
+            <p style="margin:10px 0;font-size:11px;color:#c0392b"><strong>IMPORTANTE:</strong> Se registraron múltiples instancias de estos errores durante las pruebas de 48 y 60 usuarios, confirmando la saturación del sistema. Se adjunta el archivo de log de Q-Flow para validar los errores en detalle.</p>
         </div>
 
         <div class="recommendations">
             <h3>🎯 Recomendaciones Estratégicas</h3>
+            
             <h4>Para Script TAfterEnq en QA-DESA:</h4>
             <ul>
                 <li><strong>Límite Operacional:</strong> Máximo 36 usuarios concurrentes para rendimiento óptimo</li>
-                <li><strong>Monitoreo Crítico:</strong> Alertas cuando CPU SQL Server > 85%</li>
-                <li><strong>Prevención de Errores:</strong> Implementar retry logic para conversation handles</li>
-                <li><strong>Gestión de Procesos:</strong> Timeout configurables para process update operations</li>
+                <li><strong>Monitoreo Crítico:</strong> Alertas cuando CPU SQL Server > 80%</li>
+                <li><strong>Prevención de Deadlocks:</strong> Implementar timeouts y retry logic apropiados</li>
+                <li><strong>Gestión de Conversation Handles:</strong> Implementar validación y limpieza de handles</li>
             </ul>
             
             <h4>Para Optimización del Script:</h4>
@@ -372,24 +374,41 @@
                 <li><strong>Indexación:</strong> Revisar índices para operaciones TAfterEnq</li>
                 <li><strong>Connection Pooling:</strong> Optimizar gestión de conexiones de base de datos</li>
                 <li><strong>Gestión de Transacciones:</strong> Revisar tamaño y duración de transacciones</li>
+                <li><strong>Paginación:</strong> Implementar paginación en resultados grandes</li>
+                <li><strong>Manejo de Excepciones:</strong> Mejorar captura y manejo de SqlExceptions</li>
+            </ul>
+            
+            <h4>Para Incremento de Capacidad del Sistema:</h4>
+            <ul>
+                <li><strong>SQL Server CPU:</strong> Incrementar de 2 a 4+ cores mínimo para soportar mayor concurrencia</li>
+                <li><strong>SQL Server RAM:</strong> Evaluar incremento de memoria para buffering y cache</li>
+                <li><strong>Balanceador de Carga:</strong> Implementar distribución equitativa entre servidores IIS</li>
+                <li><strong>Optimización de BD:</strong> Revisar y optimizar índices específicos para TAfterEnq</li>
+                <li><strong>Connection Management:</strong> Configurar pool de conexiones apropiado</li>
+                <li><strong>Timeout Configuration:</strong> Ajustar timeouts de conexión y comando</li>
             </ul>
             
             <h4>Acceso para Validaciones:</h4>
             <ul>
                 <li><strong>Base de Datos Q-Flow:</strong> Disponible para el equipo técnico para análisis adicionales</li>
                 <li><strong>Interfaz Web Q-Flow:</strong> Acceso habilitado para validaciones funcionales</li>
-                <li><strong>Logs del Sistema:</strong> Archivo Log de eventos Q-Flow disponible para revisión detallada</li>
+                <li><strong>Logs del Sistema:</strong> Archivo de eventos Q-Flow disponible para revisión detallada</li>
                 <li><strong>Entorno de Pruebas:</strong> QA-DESA disponible para replicar escenarios de carga</li>
             </ul>
         </div>
 
         <div class="executive-summary">
             <h2>💡 Conclusiones Finales</h2>
-            <p><strong>El Script TAfterEnq demuestra excelente escalabilidad y eficiencia, con un punto óptimo de 36 usuarios concurrentes que ofrece el mejor balance entre throughput y confiabilidad.</strong> 
-            El sistema mantiene rendimiento estable hasta 48 usuarios, después de los cuales experimenta degradación crítica. 
-            Este script es significativamente más eficiente que CaseGetFolio(7) para operaciones de producción.</p>
+            <p><strong>El Script TAfterEnq demuestra un rendimiento excepcional con un comportamiento de escalamiento único que alcanza su punto óptimo en 36 usuarios concurrentes.</strong> 
+            El sistema presenta un patrón de auto-optimización entre 24-36 usuarios, seguido de un punto de quiebre abrupto en 48 usuarios debido a limitaciones de hardware.</p>
             
-            <p style="margin-top:15px"><em>Este análisis establece que TAfterEnq es la opción recomendada para implementaciones de alta concurrencia en el entorno QA-DESA.</em></p>
+            <p style="margin-top:15px"><strong>Capacidad Actual:</strong> 36 usuarios concurrentes máximo operacional con 39.1 TPS y 0.96% de error.</p>
+            
+            <p style="margin-top:15px"><strong>Necesidad de Escalamiento:</strong> Para soportar mayor concurrencia, el sistema requiere incremento en la capacidad de procesamiento del SQL Server, principalmente CPU y optimización de base de datos.</p>
+            
+            <p style="margin-top:15px;color:#c0392b;font-weight:bold">⚠️ <strong>Requisito Crítico para Aprobación:</strong> Es indispensable validar el procesamiento de los deadlocks y timeouts identificados en las pruebas antes de proceder con la aprobación de uso del Script TAfterEnq en entornos de producción.</p>
+            
+            <p style="margin-top:15px"><em>Este análisis establece que TAfterEnq es altamente eficiente pero está limitado por la capacidad actual de hardware del entorno QA-DESA. Con las mejoras recomendadas y la resolución de los issues de deadlocks, el sistema podría escalar significativamente.</em></p>
         </div>
     </div>
 
@@ -402,16 +421,20 @@ async function initializeCharts(){
     try{
         await waitForChart();
         
+        // Datos reales de las pruebas realizadas
         const data={
             users:[12,24,36,48,60],
-            throughput:[12.1,17.9,39.1,35.4,32.4],
-            errorRate:[0.22,9.16,0.96,13.60,30.30],
-            avgResponseTime:[465,595,406,845,1340],
-            maxResponseTime:[28650,69902,1915,20693,21083],
-            sqlCpu:[60,78,89,97,100],
-            sqlMemory:[35,38,35,28,25],
-            iisCpuAvg:[25,47,50,28,28],
-            iisMemoryAvg:[15,23,18,18,18]
+            throughput:[14.6,26.4,39.1,35.4,32.4],
+            errorRate:[0.31,1.15,0.96,13.60,30.50],
+            avgResponseTime:[335,417,406,845,1340],
+            maxResponseTime:[8870,4971,1915,20693,21083],
+            // Promedio estimado de CPU por prueba basado en los gráficos
+            sqlCpu:[65,78,85,90,95],
+            sqlMemory:[18,21,26,21.5,21.5], // Pages/sec - datos corregidos basados en Performance Monitor
+            // Promedio entre IIS1 e IIS2
+            iisCpuAvg:[25,38,40,42,21],
+            // Diferencia entre IIS2 e IIS1 para mostrar desbalance
+            iisBalance:[15,30,35,40,15]
         };
 
         const config={
@@ -419,12 +442,13 @@ async function initializeCharts(){
             maintainAspectRatio:true,
             aspectRatio:1.8,
             scales:{
-                x:{title:{display:true,text:'Usuarios Concurrentes'}},
-                y:{beginAtZero:true}
+                x:{title:{display:true,text:'Usuarios Concurrentes',font:{size:12}}},
+                y:{beginAtZero:true,title:{font:{size:12}}}
             },
             plugins:{legend:{display:false}}
         };
 
+        // Gráfico de Throughput
         new Chart(document.getElementById('throughputChart'),{
             type:'line',
             data:{
@@ -437,13 +461,15 @@ async function initializeCharts(){
                     pointBackgroundColor:['#2ecc71','#2ecc71','#27ae60','#f39c12','#e74c3c'],
                     pointBorderColor:'#fff',
                     pointBorderWidth:2,
-                    pointRadius:6,
-                    tension:0.3
+                    pointRadius:8,
+                    tension:0.3,
+                    fill:true
                 }]
             },
-            options:{...config,scales:{...config.scales,y:{...config.scales.y,title:{display:true,text:'TPS'}}}}
+            options:{...config,scales:{...config.scales,y:{...config.scales.y,title:{display:true,text:'Transacciones por Segundo (TPS)',font:{size:12}}}}}
         });
 
+        // Gráfico de Tasa de Errores
         new Chart(document.getElementById('errorChart'),{
             type:'line',
             data:{
@@ -456,13 +482,15 @@ async function initializeCharts(){
                     pointBackgroundColor:['#2ecc71','#f39c12','#2ecc71','#e74c3c','#c0392b'],
                     pointBorderColor:'#fff',
                     pointBorderWidth:2,
-                    pointRadius:6,
-                    tension:0.3
+                    pointRadius:8,
+                    tension:0.3,
+                    fill:true
                 }]
             },
-            options:{...config,scales:{...config.scales,y:{...config.scales.y,title:{display:true,text:'% Error'}}}}
+            options:{...config,scales:{...config.scales,y:{...config.scales.y,title:{display:true,text:'Porcentaje de Errores (%)',font:{size:12}}}}}
         });
 
+        // Gráfico de Tiempo de Respuesta Promedio
         new Chart(document.getElementById('responseTimeChart'),{
             type:'line',
             data:{
@@ -475,13 +503,15 @@ async function initializeCharts(){
                     pointBackgroundColor:['#2ecc71','#f39c12','#2ecc71','#e74c3c','#c0392b'],
                     pointBorderColor:'#fff',
                     pointBorderWidth:2,
-                    pointRadius:6,
-                    tension:0.3
+                    pointRadius:8,
+                    tension:0.3,
+                    fill:true
                 }]
             },
-            options:{...config,scales:{...config.scales,y:{...config.scales.y,title:{display:true,text:'Tiempo (ms)'}}}}
+            options:{...config,scales:{...config.scales,y:{...config.scales.y,title:{display:true,text:'Tiempo Promedio (ms)',font:{size:12}}}}}
         });
 
+        // Gráfico de Tiempo de Respuesta Máximo
         new Chart(document.getElementById('maxTimeChart'),{
             type:'line',
             data:{
@@ -494,11 +524,12 @@ async function initializeCharts(){
                     pointBackgroundColor:['#e67e22','#e74c3c','#2ecc71','#e74c3c','#c0392b'],
                     pointBorderColor:'#fff',
                     pointBorderWidth:2,
-                    pointRadius:6,
-                    tension:0.3
+                    pointRadius:8,
+                    tension:0.3,
+                    fill:true
                 }]
             },
-            options:{...config,scales:{...config.scales,y:{...config.scales.y,title:{display:true,text:'Tiempo Máximo (ms)'}}}}
+            options:{...config,scales:{...config.scales,y:{...config.scales.y,title:{display:true,text:'Tiempo Máximo (ms)',font:{size:12}}}}}
         });
 
         const resourceConfig={
@@ -506,12 +537,13 @@ async function initializeCharts(){
             maintainAspectRatio:true,
             aspectRatio:1.5,
             scales:{
-                x:{title:{display:true,text:'Usuarios'}},
-                y:{beginAtZero:true,max:100,title:{display:true,text:'Uso (%)'}}
+                x:{title:{display:true,text:'Usuarios Concurrentes',font:{size:11}}},
+                y:{beginAtZero:true,max:100,title:{display:true,text:'Uso (%)',font:{size:11}}}
             },
             plugins:{legend:{display:false}}
         };
 
+        // Gráfico SQL CPU
         new Chart(document.getElementById('sqlCpuChart'),{
             type:'bar',
             data:{
@@ -519,25 +551,29 @@ async function initializeCharts(){
                 datasets:[{
                     data:data.sqlCpu,
                     backgroundColor:['#2ecc71','#f39c12','#e67e22','#e74c3c','#c0392b'],
-                    borderWidth:1
+                    borderWidth:1,
+                    borderRadius:4
                 }]
             },
             options:resourceConfig
         });
 
+        // Gráfico SQL Memoria
         new Chart(document.getElementById('sqlMemoryChart'),{
             type:'bar',
             data:{
                 labels:data.users,
                 datasets:[{
                     data:data.sqlMemory,
-                    backgroundColor:['#3498db','#5dade2','#3498db','#2980b9','#2471a3'],
-                    borderWidth:1
+                    backgroundColor:['#3498db','#5dade2','#74b9ff','#e67e22','#e74c3c'],
+                    borderWidth:1,
+                    borderRadius:4
                 }]
             },
-            options:resourceConfig
+            options:{...resourceConfig,scales:{...resourceConfig.scales,y:{...resourceConfig.scales.y,title:{display:true,text:'Pages/sec',font:{size:11}},max:30}}}
         });
 
+        // Gráfico IIS CPU Promedio
         new Chart(document.getElementById('iisCpuChart'),{
             type:'bar',
             data:{
@@ -545,23 +581,27 @@ async function initializeCharts(){
                 datasets:[{
                     data:data.iisCpuAvg,
                     backgroundColor:['#27ae60','#58d68d','#52c41a','#f39c12','#e67e22'],
-                    borderWidth:1
+                    borderWidth:1,
+                    borderRadius:4
                 }]
             },
             options:resourceConfig
         });
 
-        new Chart(document.getElementById('iisMemoryChart'),{
+        // Gráfico de Distribución IIS
+        new Chart(document.getElementById('iisDistributionChart'),{
             type:'bar',
             data:{
                 labels:data.users,
                 datasets:[{
-                    data:data.iisMemoryAvg,
-                    backgroundColor:['#8e44ad','#a569bd','#bb8fce','#d2b4de','#e8daef'],
-                    borderWidth:1
+                    label:'IIS2 - IIS1 (Desbalance)',
+                    data:data.iisBalance,
+                    backgroundColor:['#f39c12','#e67e22','#e74c3c','#c0392b','#8e44ad'],
+                    borderWidth:1,
+                    borderRadius:4
                 }]
             },
-            options:resourceConfig
+            options:{...resourceConfig,scales:{...resourceConfig.scales,y:{...resourceConfig.scales.y,title:{display:true,text:'Diferencia CPU (%)',font:{size:11}},max:50}}}
         });
 
         console.log('🎯 Todos los gráficos consolidados TAfterEnq creados exitosamente!');
@@ -580,50 +620,30 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')goBack();});
 
 function downloadPDF(){
     const t=document.title;
-    document.title='Reporte_BBVA_Consolidado_TAfterEnq_'+new Date().toISOString().split('T')[0];
-    
-    // Ocultar elementos de navegación
+    document.title='Reporte_BBVA_Consolidado_TAfterEnq_TESTBBVA004_'+new Date().toISOString().split('T')[0];
     document.querySelectorAll('.nav-header,header,nav').forEach(el=>el.style.display='none');
     
-    // Guardar estilos originales
     const s={fontSize:document.body.style.fontSize,background:document.body.style.background,margin:document.body.style.margin,padding:document.body.style.padding};
-    
-    // Aplicar estilos para PDF
-    document.body.style.fontSize='10px';
+    document.body.style.fontSize='9px';
     document.body.style.background='white';
     document.body.style.margin='0';
-    document.body.style.padding='15px';
+    document.body.style.padding='0';
     
-    // Forzar re-render de gráficas para PDF
-    const charts=document.querySelectorAll('.chart-box canvas');
-    charts.forEach(canvas=>{
-        if(canvas.style){
-            canvas.style.maxHeight='180px';
-            canvas.style.maxWidth='100%';
-            canvas.style.width='100%';
-            canvas.style.height='auto';
-        }
-    });
-    
-    // Estilos específicos para impresión
     const st=document.createElement('style');
     st.innerHTML=`
         @media print{
-            @page{margin:0.3in;size:A4}
+            @page{margin:0.5in;size:A4}
             .nav-header,header,nav{display:none!important}
             body{-webkit-print-color-adjust:exact!important;color-adjust:exact!important}
-            .chart-box{height:220px!important;page-break-inside:avoid!important}
-            .chart-box canvas{max-height:180px!important;max-width:100%!important;width:100%!important;height:auto!important}
-            .chart-container-two,.chart-container-four{page-break-inside:avoid!important}
+            .chart-box{height:200px!important;page-break-inside:avoid!important}
+            .chart-box canvas{max-height:180px!important;max-width:100%!important}
+            .analysis-section,.critical-warning,.success-highlight{page-break-inside:avoid!important}
         }
     `;
     document.head.appendChild(st);
     
-    // Esperar un momento para que se apliquen los estilos
     setTimeout(()=>{
         window.print();
-        
-        // Restaurar estilos después de imprimir
         setTimeout(()=>{
             document.title=t;
             document.body.style.fontSize=s.fontSize;
@@ -632,18 +652,8 @@ function downloadPDF(){
             document.body.style.padding=s.padding;
             document.querySelectorAll('.nav-header,header,nav').forEach(el=>el.style.display='');
             document.head.removeChild(st);
-            
-            // Restaurar canvas originales
-            charts.forEach(canvas=>{
-                if(canvas.style){
-                    canvas.style.maxHeight='';
-                    canvas.style.maxWidth='';
-                    canvas.style.width='';
-                    canvas.style.height='';
-                }
-            });
-        },1500);
-    },300);
+        },1000);
+    },200);
 }
 </script>
 </body>
