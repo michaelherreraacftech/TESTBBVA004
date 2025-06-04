@@ -47,13 +47,20 @@
         .note{background:#fff3cd;border:1px solid #ffeaa7;padding:10px;border-radius:6px;margin-top:15px;font-size:11px;color:#856404}
         @media print{
             .nav-header{display:none!important}
-            body{background:white!important;font-size:10px!important;margin:0!important;padding:20px!important}
+            body{background:white!important;font-size:10px!important;margin:0!important;padding:15px!important}
             .container{box-shadow:none!important;max-width:100%!important;padding:0!important;margin:0!important}
-            .chart-box{height:180px!important;page-break-inside:avoid!important}
+            .chart-box{height:180px!important;page-break-inside:avoid!important;margin-bottom:15px!important}
+            .chart-box canvas{max-height:150px!important;max-width:100%!important;width:100%!important;height:auto!important}
+            .chart-container{page-break-inside:avoid!important;margin:10px 0!important}
             .pdf-header{display:block!important}
             body{-webkit-print-color-adjust:exact!important;color-adjust:exact!important}
             .result-badge,.pass{background:#2ecc71!important;color:white!important}
-            @page{margin:0.4in}
+            .results-table{page-break-inside:avoid!important;font-size:9px!important}
+            .arch-info{page-break-inside:avoid!important;margin:10px 0!important}
+            .metrics-grid{page-break-inside:avoid!important;margin:10px 0!important}
+            h1,h2{page-break-after:avoid!important}
+            h3{page-break-after:avoid!important;page-break-inside:avoid!important}
+            @page{margin:0.3in;size:A4}
         }
     </style>
 </head>
@@ -174,14 +181,17 @@
         <div class="arch-info">
             <h4>Observaciones Clave:</h4>
             <ul>
-                <li><strong>Rendimiento Excelente:</strong> 36 usuarios logran throughput óptimo de 39.1 TPS (más del doble vs 24 usuarios)</li>
-                <li><strong>Confiabilidad Destacada:</strong> Tasa de error excepcional del 0.96%, mejora significativa vs cargas anteriores</li>
-                <li><strong>Estabilidad del Sistema:</strong> 99.04% de transacciones exitosas demuestra robustez del entorno</li>
-                <li><strong>Latencia Optimizada:</strong> Tiempo promedio de 406ms, incluso mejor que con 24 usuarios</li>
-                <li><strong>SQL Server Eficiente:</strong> CPU con picos hasta 89% pero memoria estable en rangos operativos</li>
-                <li><strong>IIS Balanceado:</strong> Distribución óptima entre servidores con gestión eficiente de recursos</li>
-                <li><strong>Script TAfterEnq Maduro:</strong> Demuestra excelente escalabilidad y optimización</li>
-                <li><strong>Punto Óptimo:</strong> 36 usuarios representa un sweet spot de rendimiento para el sistema</li>
+                <li><strong>Escalamiento Excelente:</strong> 36 usuarios logran 39.1 TPS manteniendo calidad excepcional (99.04% éxito)</li>
+                <li><strong>Tasa de Error Óptima:</strong> 0.96% de errores, muy por debajo del límite del 3%, indica sistema robusto</li>
+                <li><strong>Rendimiento Sobresaliente:</strong> Mayor concurrencia con menor tasa de error que pruebas anteriores</li>
+                <li><strong>Latencia Optimizada:</strong> Tiempo promedio de 406ms se mantiene estable respecto a 24 usuarios</li>
+                <li><strong>SQL Server Estable:</strong> CPU sostenido 40-90% con alta actividad de disco, pero controlado</li>
+                <li><strong>IIS2 Alta Demanda:</strong> CPU hasta 95% al final, requiere balanceamiento</li>
+                <li><strong>IIS1 Equilibrado:</strong> CPU picos hasta 69%, mejor distribución que IIS2</li>
+                <li><strong>Memoria Eficiente:</strong> Páginas/seg dentro de rangos normales en todos los servidores</li>
+                <li><strong>Script TAfterEnq Optimizado:</strong> Demuestra excelente escalabilidad y estabilidad</li>
+                <li><strong>Capacidad Disponible:</strong> Sistema muestra potencial para cargas aún mayores</li>
+                <li><strong>Balanceador Crítico:</strong> Distribución desigual entre IIS requiere atención inmediata</li>
             </ul>
         </div>
     </div>
@@ -190,10 +200,17 @@
 window.addEventListener('load',function(){
     if(typeof Chart==='undefined')return;
     
-    const t=['5:18:47','5:19:30','5:20:15','5:21:00','5:21:45','5:22:30'];
-    const s1={cpu:[15,25,35,68,54,18],mem:[18,18,18,18,18,18],dc:[2,4,6,10,8,3],dn:[6,10,15,25,20,8]};
-    const s2={cpu:[12,22,32,65,57,15],mem:[18,18,18,18,18,18],dc:[2,3,5,9,7,2],dn:[5,8,13,22,18,7]};
-    const sql={cpu:[35,45,55,89,78,42],mem:[26,28,32,35,32,28],dc:[3,6,9,15,12,5],dg:[8,15,22,35,28,12]};
+    // Datos basados en los gráficos de Performance Monitor para 36 usuarios
+    const t=['5:18:43','5:19:45','5:21:00','5:22:00','5:23:15','5:23:43'];
+    
+    // IIS Server 1 (BBVAMX-UATIIS1) - basado en imagen 2
+    const s1={cpu:[4,24,53,26,69,23],mem:[18,0,0,0,0,0],dc:[8,6,4,18,10,3],dn:[5,8,2,4,6,8]};
+    
+    // IIS Server 2 (BBVAMX-UATIIS2) - basado en imagen 1  
+    const s2={cpu:[15,23,14,24,95,36],mem:[18,0,0,0,0,0],dc:[2,5,12,5,95,6],dn:[3,4,2,15,4,5]};
+    
+    // SQL Server (BBVAMX-UATSQL1) - basado en imagen 3
+    const sql={cpu:[48,74,43,36,89,75],mem:[26,0,0,0,0,0],dc:[8,63,2,46,15,14],dg:[34,57,15,48,12,16]};
     
     const opt={responsive:true,maintainAspectRatio:true,aspectRatio:2,plugins:{legend:{display:true,position:'top',labels:{font:{size:9},boxWidth:10,padding:8}}},scales:{y:{beginAtZero:true,max:100,title:{display:true,text:'Uso (%)',font:{size:10}},ticks:{font:{size:9}}},x:{title:{display:true,text:'Tiempo',font:{size:10}},ticks:{font:{size:9}}}}};
     
@@ -220,11 +237,69 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')goBack();});
 function downloadPDF(){
     const t=document.title;
     document.title='Reporte_BBVA_TESTBBVA004_36_Usuarios_TAfterEnq_PASS_'+new Date().toISOString().split('T')[0];
+    
+    // Ocultar elementos de navegación
     document.querySelectorAll('.nav-header,header,nav').forEach(el=>el.style.display='none');
+    
+    // Guardar estilos originales
     const s={fontSize:document.body.style.fontSize,background:document.body.style.background,margin:document.body.style.margin,padding:document.body.style.padding};
-    document.body.style.fontSize='9px';document.body.style.background='white';document.body.style.margin='0';document.body.style.padding='0';
-    const st=document.createElement('style');st.innerHTML='@media print{@page{margin:0.5in;size:A4}.nav-header,header,nav{display:none!important}body{-webkit-print-color-adjust:exact}}';document.head.appendChild(st);
-    setTimeout(()=>{window.print();setTimeout(()=>{document.title=t;document.body.style.fontSize=s.fontSize;document.body.style.background=s.background;document.body.style.margin=s.margin;document.body.style.padding=s.padding;document.querySelectorAll('.nav-header,header,nav').forEach(el=>el.style.display='');document.head.removeChild(st);},1000);},100);
+    
+    // Aplicar estilos para PDF
+    document.body.style.fontSize='10px';
+    document.body.style.background='white';
+    document.body.style.margin='0';
+    document.body.style.padding='15px';
+    
+    // Forzar re-render de gráficas para PDF
+    const charts=document.querySelectorAll('.chart-box canvas');
+    charts.forEach(canvas=>{
+        if(canvas.style){
+            canvas.style.maxHeight='150px';
+            canvas.style.maxWidth='100%';
+            canvas.style.width='100%';
+            canvas.style.height='auto';
+        }
+    });
+    
+    // Estilos específicos para impresión
+    const st=document.createElement('style');
+    st.innerHTML=`
+        @media print{
+            @page{margin:0.3in;size:A4}
+            .nav-header,header,nav{display:none!important}
+            body{-webkit-print-color-adjust:exact!important;color-adjust:exact!important}
+            .chart-box{height:180px!important;page-break-inside:avoid!important}
+            .chart-box canvas{max-height:150px!important;max-width:100%!important;width:100%!important;height:auto!important}
+            .chart-container{page-break-inside:avoid!important}
+        }
+    `;
+    document.head.appendChild(st);
+    
+    // Esperar un momento para que se apliquen los estilos
+    setTimeout(()=>{
+        window.print();
+        
+        // Restaurar estilos después de imprimir
+        setTimeout(()=>{
+            document.title=t;
+            document.body.style.fontSize=s.fontSize;
+            document.body.style.background=s.background;
+            document.body.style.margin=s.margin;
+            document.body.style.padding=s.padding;
+            document.querySelectorAll('.nav-header,header,nav').forEach(el=>el.style.display='');
+            document.head.removeChild(st);
+            
+            // Restaurar canvas originales
+            charts.forEach(canvas=>{
+                if(canvas.style){
+                    canvas.style.maxHeight='';
+                    canvas.style.maxWidth='';
+                    canvas.style.width='';
+                    canvas.style.height='';
+                }
+            });
+        },1500);
+    },300);
 }
 </script>
 </body>
