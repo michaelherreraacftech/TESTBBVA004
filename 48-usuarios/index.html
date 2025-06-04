@@ -15,14 +15,15 @@
         .test-summary{background:linear-gradient(135deg,#2c3e50,#34495e);color:white;padding:12px;border-radius:6px;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center}
         .test-summary h3{margin:0 0 5px 0;font-size:16px}
         .test-summary p{margin:0;font-size:12px}
-        .result-badge{background:#f39c12;color:white;padding:15px 20px;border-radius:6px;font-weight:bold;font-size:18px;text-align:center;min-width:80px;height:50px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+        .result-badge{background:#e74c3c;color:white;padding:15px 20px;border-radius:6px;font-weight:bold;font-size:18px;text-align:center;min-width:80px;height:50px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
         .results-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:10px}
         .results-table th,.results-table td{border:1px solid #ddd;padding:6px 4px;text-align:center}
         .results-table th{background:linear-gradient(135deg,#3498db,#2980b9);color:white;font-weight:bold}
         .results-table tr:nth-child(even){background:#f9f9f9}
-        .warning{background:#f39c12;color:white;padding:5px 10px;border-radius:15px;font-weight:bold}
+        .pass{background:#2ecc71;color:white;padding:5px 10px;border-radius:15px;font-weight:bold}
+        .fail{background:#e74c3c;color:white;padding:5px 10px;border-radius:15px;font-weight:bold}
         .metrics-grid{display:grid;grid-template-columns:repeat(4,1fr) 150px;gap:10px;margin:15px 0;align-items:center}
-        .metric-card{background:linear-gradient(135deg,#a8e6cf,#7fcdcd);color:#2c3e50;padding:10px;border-radius:6px;text-align:center}
+        .metric-card{background:linear-gradient(135deg,#ffcccb,#ffb3ba);color:#2c3e50;padding:10px;border-radius:6px;text-align:center}
         .metric-value{font-size:1.4em;font-weight:bold;margin-bottom:3px}
         .metric-label{font-size:0.8em;opacity:0.9}
         .pie-chart-container{display:flex;flex-direction:column;align-items:center;background:white;padding:10px;border-radius:6px;box-shadow:0 1px 5px rgba(0,0,0,0.1)}
@@ -45,16 +46,23 @@
         .server h4{margin-top:0;font-size:13px}
         .server ul{font-size:10px;margin:0;padding-left:15px}
         .note{background:#fff3cd;border:1px solid #ffeaa7;padding:10px;border-radius:6px;margin-top:15px;font-size:11px;color:#856404}
-        .alert{background:#f8d7da;border:1px solid #f5c6cb;padding:10px;border-radius:6px;margin-top:15px;font-size:11px;color:#721c24}
+        .warning{background:#ffebee;border:1px solid #ffcdd2;padding:10px;border-radius:6px;margin-top:15px;font-size:11px;color:#d32f2f}
         @media print{
             .nav-header{display:none!important}
-            body{background:white!important;font-size:10px!important;margin:0!important;padding:20px!important}
+            body{background:white!important;font-size:10px!important;margin:0!important;padding:15px!important}
             .container{box-shadow:none!important;max-width:100%!important;padding:0!important;margin:0!important}
-            .chart-box{height:180px!important;page-break-inside:avoid!important}
+            .chart-box{height:180px!important;page-break-inside:avoid!important;margin-bottom:15px!important}
+            .chart-box canvas{max-height:150px!important;max-width:100%!important;width:100%!important;height:auto!important}
+            .chart-container{page-break-inside:avoid!important;margin:10px 0!important}
             .pdf-header{display:block!important}
             body{-webkit-print-color-adjust:exact!important;color-adjust:exact!important}
-            .result-badge,.warning{background:#f39c12!important;color:white!important}
-            @page{margin:0.4in}
+            .result-badge,.fail{background:#e74c3c!important;color:white!important}
+            .results-table{page-break-inside:avoid!important;font-size:9px!important}
+            .arch-info{page-break-inside:avoid!important;margin:10px 0!important}
+            .metrics-grid{page-break-inside:avoid!important;margin:10px 0!important}
+            h1,h2{page-break-after:avoid!important}
+            h3{page-break-after:avoid!important;page-break-inside:avoid!important}
+            @page{margin:0.3in;size:A4}
         }
     </style>
 </head>
@@ -66,7 +74,7 @@
 
         <div class="nav-header">
             <button class="back-btn" onclick="goBack()"><span>←</span><span>Regresar</span></button>
-            <div class="page-title">Reporte de Performance - 48 Usuarios Concurrentes (PASS con Advertencias)</div>
+            <div class="page-title">Reporte de Performance - 48 Usuarios Concurrentes (FAIL)</div>
             <button class="back-btn" onclick="downloadPDF()" style="background:linear-gradient(135deg,#e74c3c,#c0392b)"><span>📄</span><span>Descargar PDF</span></button>
         </div>
 
@@ -80,18 +88,14 @@
         </div>
 
         <h1>Análisis de Capacidad Sistema Q-Flow - Entorno QA-DESA</h1>
-        <p class="subtitle">Evaluación Completa de Rendimiento: 48 Usuarios Concurrentes<br><strong>Script TAfterEnq Activo</strong></p>
+        <p class="subtitle">Evaluación Completa de Rendimiento: 48 Usuarios Concurrentes<br><strong>Script TAfterEnq Activo - LÍMITE DE SATURACIÓN ALCANZADO</strong></p>
 
         <div class="test-summary">
             <div>
                 <h3>Prueba TESTBBVA004 - Performance (48 Usuarios Concurrentes)</h3>
                 <p><strong>Duración:</strong> 5 minutos | <strong>Arquitectura:</strong> Q-Flow + IIS + SQL Server</p>
             </div>
-            <div class="result-badge">PASS*</div>
-        </div>
-
-        <div class="alert">
-            <strong>⚠️ Advertencia:</strong> El sistema comienza a mostrar señales de saturación con 48 usuarios concurrentes. Tasa de error del 13.60% indica que se está acercando al límite de capacidad óptima.
+            <div class="result-badge">FAIL</div>
         </div>
 
         <div class="arch-info">
@@ -125,8 +129,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="note">
-                <strong>Nota:</strong> Todas las pruebas ejecutadas con <strong>Script TAfterEnq Activo</strong>, demás scripts inactivos para evaluación individual de capacidad.
+            <div class="warning">
+                <strong>⚠️ ALERTA:</strong> Sistema saturado con <strong>Script TAfterEnq Activo</strong>. Capacidad máxima aproximada: 36-40 usuarios concurrentes.
             </div>
         </div>
 
@@ -136,7 +140,7 @@
                 <tr><th>Prueba</th><th>Concurrencia</th><th>Duración</th><th>Muestras</th><th>Errores</th><th>% Error</th><th>Tiempo Prom (ms)</th><th>Min (ms)</th><th>Max (ms)</th><th>Throughput (TPS)</th><th>Resultado</th></tr>
             </thead>
             <tbody>
-                <tr><td><strong>TESTBBVA004</strong></td><td>48 usuarios</td><td>5 min</td><td>14,784</td><td>2,011</td><td>13.60%</td><td>845ms</td><td>0</td><td>20693</td><td>35.4</td><td><span class="warning">PASS*</span></td></tr>
+                <tr><td><strong>TESTBBVA004</strong></td><td>48 usuarios</td><td>5 min</td><td>14,784</td><td>2,011</td><td>13.60%</td><td>845ms</td><td>0</td><td>20693</td><td>35.4</td><td><span class="fail">FAIL</span></td></tr>
             </tbody>
         </table>
 
@@ -175,28 +179,33 @@
             <div class="chart-box"><div class="chart-title">SQL Server - Discos</div><canvas id="sqldisk"></canvas></div>
         </div>
 
-        <h2>Análisis de Rendimiento</h2>
+        <h2>Análisis de Rendimiento - PUNTO DE SATURACIÓN</h2>
         <div class="arch-info">
-            <h4>Observaciones Clave:</h4>
+            <h4>Observaciones Críticas:</h4>
             <ul>
-                <li><strong>Saturación Inicial:</strong> 48 usuarios marcan el inicio de la saturación del sistema con 13.60% de errores</li>
-                <li><strong>Throughput Decreciente:</strong> 35.4 TPS es menor que los 39.1 TPS con 36 usuarios, indicando cuello de botella</li>
-                <li><strong>Confiabilidad Comprometida:</strong> 86.40% de éxito, por debajo del umbral óptimo del 95%</li>
-                <li><strong>Latencia Incrementada:</strong> Tiempo promedio de 845ms, más del doble vs 36 usuarios</li>
-                <li><strong>SQL Server Saturado:</strong> CPU llegando hasta 97% con picos sostenidos de alto uso</li>
-                <li><strong>IIS Under Stress:</strong> Servidores IIS mostrando picos de CPU hasta 32% y 23%</li>
-                <li><strong>Script TAfterEnq Límite:</strong> Alcanzando el límite práctico de escalabilidad</li>
-                <li><strong>Punto de Inflexión:</strong> 48 usuarios representa el límite superior recomendado</li>
+                <li><strong>⚠️ Límite de Saturación Alcanzado:</strong> 48 usuarios superan la capacidad del sistema (13.60% de errores > 3%)</li>
+                <li><strong>Degradación Significativa:</strong> Throughput disminuye a 35.4 TPS vs 39.1 TPS con 36 usuarios</li>
+                <li><strong>Latencia Crítica:</strong> Tiempo promedio aumenta a 845ms, máximo crítico de 20.7 segundos</li>
+                <li><strong>SQL Server Saturado:</strong> CPU sostenido 60-97%, actividad de disco intensa y continua</li>
+                <li><strong>IIS2 Sobrecargado:</strong> CPU picos hasta 56%, alta actividad de memoria páginas/seg</li>
+                <li><strong>IIS1 Subutilizado:</strong> CPU moderado 15-31%, desbalance crítico de carga</li>
+                <li><strong>Memoria Comprometida:</strong> Actividad elevada de páginas/seg en múltiples servidores</li>
+                <li><strong>Capacidad Máxima Definida:</strong> 36-40 usuarios concurrentes es el límite operativo</li>
+                <li><strong>Script TAfterEnq Límite:</strong> Alcanza su punto de quiebre bajo esta concurrencia</li>
+                <li><strong>Optimización Urgente:</strong> Requiere balanceador de carga y escalamiento de SQL Server</li>
+                <li><strong>Recursos Insuficientes:</strong> SQL Server necesita más CPU y optimización de consultas</li>
+                <li><strong>Patrón de Falla:</strong> Errores incrementales indican saturación gradual, no colapso súbito</li>
             </ul>
         </div>
 
-        <div class="alert">
-            <h4>Recomendaciones:</h4>
+        <div class="warning">
+            <h4>🎯 Recomendaciones Inmediatas:</h4>
             <ul>
-                <li><strong>Límite Operativo:</strong> Establecer 36 usuarios como máximo recomendado para producción</li>
-                <li><strong>Monitoreo CPU:</strong> Implementar alertas cuando SQL Server supere 85% de CPU</li>
-                <li><strong>Optimización DB:</strong> Revisar queries y índices en base de datos para mejorar rendimiento</li>
-                <li><strong>Escalamiento Vertical:</strong> Considerar aumentar recursos de CPU y memoria en SQL Server</li>
+                <li><strong>Capacidad Máxima:</strong> Limitar a 36 usuarios concurrentes en producción</li>
+                <li><strong>Balanceador de Carga:</strong> Implementar distribución equitativa entre servidores IIS</li>
+                <li><strong>SQL Server:</strong> Incrementar recursos de CPU o optimizar consultas críticas</li>
+                <li><strong>Monitoreo:</strong> Establecer alertas para 30+ usuarios concurrentes</li>
+                <li><strong>Escalamiento Vertical:</strong> Considerar mayor capacidad de hardware para SQL Server</li>
             </ul>
         </div>
     </div>
@@ -205,16 +214,23 @@
 window.addEventListener('load',function(){
     if(typeof Chart==='undefined')return;
     
-    const t=['5:31:07','5:32:00','5:33:00','5:34:00','5:35:00','5:36:00'];
-    const s1={cpu:[18,22,28,32,25,20],mem:[12,12,12,12,12,12],dc:[3,5,8,12,9,4],dn:[8,12,18,25,20,10]};
-    const s2={cpu:[16,20,25,23,22,18],mem:[23,23,23,23,23,23],dc:[3,4,7,11,8,3],dn:[7,11,16,22,18,9]};
-    const sql={cpu:[65,75,85,97,88,72],mem:[20,22,25,28,25,22],dc:[4,8,12,18,14,6],dg:[10,18,28,40,32,15]};
+    // Datos basados en los gráficos de Performance Monitor para 48 usuarios (8 minutos de prueba)
+    const t=['5:30:59','5:32:00','5:33:30','5:35:00','5:36:30','5:38:00','5:39:04'];
+    
+    // IIS Server 1 (BBVAMX-UATIIS1) - basado en imagen 1
+    const s1={cpu:[18,19,17,25,18,31,7],mem:[12,0,0,0,0,0,0],dc:[2,11,3,18,7,14,2],dn:[17,4,6,2,3,6,4]};
+    
+    // IIS Server 2 (BBVAMX-UATIIS2) - basado en imagen 2  
+    const s2={cpu:[18,23,26,24,56,30,9],mem:[23,0,0,0,0,0,0],dc:[2,7,4,11,10,12,8],dn:[33,6,6,3,9,6,9]};
+    
+    // SQL Server (BBVAMX-UATSQL1) - basado en imagen 3
+    const sql={cpu:[74,87,80,52,89,97,36],mem:[20,0,0,0,0,0,0],dc:[2,8,14,2,12,16,12],dg:[82,60,47,75,45,62,25]};
     
     const opt={responsive:true,maintainAspectRatio:true,aspectRatio:2,plugins:{legend:{display:true,position:'top',labels:{font:{size:9},boxWidth:10,padding:8}}},scales:{y:{beginAtZero:true,max:100,title:{display:true,text:'Uso (%)',font:{size:10}},ticks:{font:{size:9}}},x:{title:{display:true,text:'Tiempo',font:{size:10}},ticks:{font:{size:9}}}}};
     
     function cc(id,cfg){try{const el=document.getElementById(id);if(!el)return null;return new Chart(el,cfg);}catch(e){return null;}}
     
-    cc('pieChart',{type:'pie',data:{labels:['PASS (86.40%)','FAIL (13.60%)'],datasets:[{data:[86.40,13.60],backgroundColor:['#f39c12','#e74c3c'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:true,position:'bottom',labels:{font:{size:8},boxWidth:8,padding:4,usePointStyle:true}}}}});
+    cc('pieChart',{type:'pie',data:{labels:['PASS (86.40%)','FAIL (13.60%)'],datasets:[{data:[86.40,13.60],backgroundColor:['#2ecc71','#e74c3c'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:true,position:'bottom',labels:{font:{size:8},boxWidth:8,padding:4,usePointStyle:true}}}}});
     
     cc('s1cpu',{type:'line',data:{labels:t,datasets:[{label:'CPU',data:s1.cpu,borderColor:'#f9ca24',backgroundColor:'rgba(249,202,36,0.1)',tension:0.4,borderWidth:2},{label:'Memoria',data:s1.mem,borderColor:'#ff6b6b',backgroundColor:'rgba(255,107,107,0.1)',tension:0.4,borderWidth:2}]},options:opt});
     
@@ -234,12 +250,70 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')goBack();});
 
 function downloadPDF(){
     const t=document.title;
-    document.title='Reporte_BBVA_TESTBBVA004_48_Usuarios_TAfterEnq_PASS_WARNING_'+new Date().toISOString().split('T')[0];
+    document.title='Reporte_BBVA_TESTBBVA004_48_Usuarios_TAfterEnq_FAIL_'+new Date().toISOString().split('T')[0];
+    
+    // Ocultar elementos de navegación
     document.querySelectorAll('.nav-header,header,nav').forEach(el=>el.style.display='none');
+    
+    // Guardar estilos originales
     const s={fontSize:document.body.style.fontSize,background:document.body.style.background,margin:document.body.style.margin,padding:document.body.style.padding};
-    document.body.style.fontSize='9px';document.body.style.background='white';document.body.style.margin='0';document.body.style.padding='0';
-    const st=document.createElement('style');st.innerHTML='@media print{@page{margin:0.5in;size:A4}.nav-header,header,nav{display:none!important}body{-webkit-print-color-adjust:exact}}';document.head.appendChild(st);
-    setTimeout(()=>{window.print();setTimeout(()=>{document.title=t;document.body.style.fontSize=s.fontSize;document.body.style.background=s.background;document.body.style.margin=s.margin;document.body.style.padding=s.padding;document.querySelectorAll('.nav-header,header,nav').forEach(el=>el.style.display='');document.head.removeChild(st);},1000);},100);
+    
+    // Aplicar estilos para PDF
+    document.body.style.fontSize='10px';
+    document.body.style.background='white';
+    document.body.style.margin='0';
+    document.body.style.padding='15px';
+    
+    // Forzar re-render de gráficas para PDF
+    const charts=document.querySelectorAll('.chart-box canvas');
+    charts.forEach(canvas=>{
+        if(canvas.style){
+            canvas.style.maxHeight='150px';
+            canvas.style.maxWidth='100%';
+            canvas.style.width='100%';
+            canvas.style.height='auto';
+        }
+    });
+    
+    // Estilos específicos para impresión
+    const st=document.createElement('style');
+    st.innerHTML=`
+        @media print{
+            @page{margin:0.3in;size:A4}
+            .nav-header,header,nav{display:none!important}
+            body{-webkit-print-color-adjust:exact!important;color-adjust:exact!important}
+            .chart-box{height:180px!important;page-break-inside:avoid!important}
+            .chart-box canvas{max-height:150px!important;max-width:100%!important;width:100%!important;height:auto!important}
+            .chart-container{page-break-inside:avoid!important}
+        }
+    `;
+    document.head.appendChild(st);
+    
+    // Esperar un momento para que se apliquen los estilos
+    setTimeout(()=>{
+        window.print();
+        
+        // Restaurar estilos después de imprimir
+        setTimeout(()=>{
+            document.title=t;
+            document.body.style.fontSize=s.fontSize;
+            document.body.style.background=s.background;
+            document.body.style.margin=s.margin;
+            document.body.style.padding=s.padding;
+            document.querySelectorAll('.nav-header,header,nav').forEach(el=>el.style.display='');
+            document.head.removeChild(st);
+            
+            // Restaurar canvas originales
+            charts.forEach(canvas=>{
+                if(canvas.style){
+                    canvas.style.maxHeight='';
+                    canvas.style.maxWidth='';
+                    canvas.style.width='';
+                    canvas.style.height='';
+                }
+            });
+        },1500);
+    },300);
 }
 </script>
 </body>
