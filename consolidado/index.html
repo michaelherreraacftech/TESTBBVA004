@@ -52,13 +52,26 @@
         .note{background:#fff3cd;border:1px solid #ffeaa7;padding:10px;border-radius:6px;margin-top:15px;font-size:11px;color:#856404}
         @media print{
             .nav-header{display:none!important}
-            body{background:white!important;font-size:10px!important;margin:0!important;padding:20px!important}
+            body{background:white!important;font-size:10px!important;margin:0!important;padding:15px!important}
             .container{box-shadow:none!important;max-width:100%!important;padding:0!important;margin:0!important}
-            .chart-box{height:250px!important;page-break-inside:avoid!important}
+            .chart-box{height:220px!important;page-break-inside:avoid!important;margin-bottom:15px!important}
+            .chart-box.large{height:280px!important;page-break-inside:avoid!important}
+            .chart-box canvas{max-height:180px!important;max-width:100%!important;width:100%!important;height:auto!important}
+            .chart-box.large canvas{max-height:240px!important;max-width:100%!important;width:100%!important;height:auto!important}
+            .chart-container-two{page-break-inside:avoid!important;margin:10px 0!important}
+            .chart-container-four{page-break-inside:avoid!important;margin:10px 0!important}
             .pdf-header{display:block!important}
             body{-webkit-print-color-adjust:exact!important;color-adjust:exact!important}
             .pass,.warning,.fail{background:#2ecc71!important;color:white!important}
-            @page{margin:0.4in}
+            .results-table{page-break-inside:avoid!important;font-size:9px!important}
+            .analysis-section{page-break-inside:avoid!important;margin:10px 0!important}
+            .critical-warning{page-break-inside:avoid!important;margin:10px 0!important}
+            .success-highlight{page-break-inside:avoid!important;margin:10px 0!important}
+            .recommendations{page-break-inside:avoid!important;margin:10px 0!important}
+            .executive-summary{page-break-inside:avoid!important;margin:10px 0!important}
+            h1,h2{page-break-after:avoid!important}
+            h3{page-break-after:avoid!important;page-break-inside:avoid!important}
+            @page{margin:0.3in;size:A4}
         }
     </style>
 </head>
@@ -568,13 +581,70 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')goBack();});
 function downloadPDF(){
     const t=document.title;
     document.title='Reporte_BBVA_Consolidado_TAfterEnq_'+new Date().toISOString().split('T')[0];
+    
+    // Ocultar elementos de navegación
     document.querySelectorAll('.nav-header,header,nav').forEach(el=>el.style.display='none');
+    
+    // Guardar estilos originales
     const s={fontSize:document.body.style.fontSize,background:document.body.style.background,margin:document.body.style.margin,padding:document.body.style.padding};
-    document.body.style.fontSize='9px';document.body.style.background='white';document.body.style.margin='0';document.body.style.padding='0';
-    const st=document.createElement('style');st.innerHTML='@media print{@page{margin:0.5in;size:A4}.nav-header,header,nav{display:none!important}body{-webkit-print-color-adjust:exact}}';document.head.appendChild(st);
-    setTimeout(()=>{window.print();setTimeout(()=>{document.title=t;document.body.style.fontSize=s.fontSize;document.body.style.background=s.background;document.body.style.margin=s.margin;document.body.style.padding=s.padding;document.querySelectorAll('.nav-header,header,nav').forEach(el=>el.style.display='');document.head.removeChild(st);},1000);},100);
+    
+    // Aplicar estilos para PDF
+    document.body.style.fontSize='10px';
+    document.body.style.background='white';
+    document.body.style.margin='0';
+    document.body.style.padding='15px';
+    
+    // Forzar re-render de gráficas para PDF
+    const charts=document.querySelectorAll('.chart-box canvas');
+    charts.forEach(canvas=>{
+        if(canvas.style){
+            canvas.style.maxHeight='180px';
+            canvas.style.maxWidth='100%';
+            canvas.style.width='100%';
+            canvas.style.height='auto';
+        }
+    });
+    
+    // Estilos específicos para impresión
+    const st=document.createElement('style');
+    st.innerHTML=`
+        @media print{
+            @page{margin:0.3in;size:A4}
+            .nav-header,header,nav{display:none!important}
+            body{-webkit-print-color-adjust:exact!important;color-adjust:exact!important}
+            .chart-box{height:220px!important;page-break-inside:avoid!important}
+            .chart-box canvas{max-height:180px!important;max-width:100%!important;width:100%!important;height:auto!important}
+            .chart-container-two,.chart-container-four{page-break-inside:avoid!important}
+        }
+    `;
+    document.head.appendChild(st);
+    
+    // Esperar un momento para que se apliquen los estilos
+    setTimeout(()=>{
+        window.print();
+        
+        // Restaurar estilos después de imprimir
+        setTimeout(()=>{
+            document.title=t;
+            document.body.style.fontSize=s.fontSize;
+            document.body.style.background=s.background;
+            document.body.style.margin=s.margin;
+            document.body.style.padding=s.padding;
+            document.querySelectorAll('.nav-header,header,nav').forEach(el=>el.style.display='');
+            document.head.removeChild(st);
+            
+            // Restaurar canvas originales
+            charts.forEach(canvas=>{
+                if(canvas.style){
+                    canvas.style.maxHeight='';
+                    canvas.style.maxWidth='';
+                    canvas.style.width='';
+                    canvas.style.height='';
+                }
+            });
+        },1500);
+    },300);
 }
 </script>
 </body>
 </html>
-            
