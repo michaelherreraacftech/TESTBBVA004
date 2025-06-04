@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TESTBBVA004 Encolamiento via Consola de recepción - Script TAfterEnq Activo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.4;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f6fa;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        .header-section {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e8eaed;
+        }
+        
+        .header-section h1 {
+            margin: 0;
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .report-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid #e8eaed;
+        }
+        
+        .report-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        
+        .report-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .report-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 16px;
+            color: white;
+        }
+        
+        .consolidado { background: #34495e; }
+        .usuarios-12 { background: #16a085; }
+        .usuarios-24 { background: #27ae60; }
+        .usuarios-36 { background: #2ecc71; }
+        .usuarios-48 { background: #f39c12; }
+        .usuarios-60 { background: #e74c3c; }
+        
+        .report-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0;
+            color: #2c3e50;
+        }
+        
+        .report-subtitle {
+            color: #7f8c8d;
+            font-size: 0.8em;
+            margin: 2px 0 0 0;
+        }
+        
+        .report-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 16px 0;
+        }
+        
+        .stat {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .stat-value {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: #2c3e50;
+        }
+        
+        .stat-label {
+            font-size: 0.7em;
+            color: #7f8c8d;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status.pass {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+        
+        .status.warning {
+            background: #ffeaa7;
+            color: #f39c12;
+        }
+        
+        .status.fail {
+            background: #ffebee;
+            color: #e74c3c;
+        }
+        
+        .status.complete {
+            background: #e8f4fd;
+            color: #3498db;
+        }
+        
+        .summary-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e8eaed;
+        }
+        
+        .summary-section h2 {
+            color: #2c3e50;
+            margin: 0 0 20px 0;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        .key-findings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        
+        .finding {
+            text-align: center;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .finding-value {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #2ecc71;
+            margin-bottom: 8px;
+        }
+        
+        .finding-label {
+            color: #7f8c8d;
+            font-size: 0.8em;
+        }
+        
+        @media (max-width: 768px) {
+            .reports-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .report-stats {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-section">
+            <h1>TESTBBVA004 Encolamiento via Consola de recepción - Script TAfterEnq Activo</h1>
+        </div>
+        
+        <div class="reports-grid">
+            <a href="consolidado/" class="report-card">
+                <div class="report-header">
+                    <div class="report-icon consolidado">📈</div>
+                    <div>
+                        <h3 class="report-title">Análisis Consolidado</h3>
+                        <p class="report-subtitle">12-60 Usuarios Concurrentes</p>
+                    </div>
+                </div>
+                <div class="report-stats">
+                    <div class="stat">
+                        <div class="stat-value">36</div>
+                        <div class="stat-label">Usuarios Óptimos</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">39.1</div>
+                        <div class="stat-label">TPS Máximo</div>
+                    </div>
+                </div>
+                <span class="status complete">Completo</span>
+            </a>
+            
+            <a href="12-usuarios/" class="report-card">
+                <div class="report-header">
+                    <div class="report-icon usuarios-12">🟢</div>
+                    <div>
+                        <h3 class="report-title">12 Usuarios Concurrentes</h3>
+                        <p class="report-subtitle">Línea Base - Rendimiento Excelente</p>
+                    </div>
+                </div>
+                <div class="report-stats">
+                    <div class="stat">
+                        <div class="stat-value">12.1</div>
+                        <div class="stat-label">TPS</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">0.22%</div>
+                        <div class="stat-label">Errores</div>
+                    </div>
+                </div>
+                <span class="status pass">Pass</span>
+            </a>
+            
+            <a href="24-usuarios/" class="report-card">
+                <div class="report-header">
+                    <div class="report-icon usuarios-24">✅</div>
+                    <div>
+                        <h3 class="report-title">24 Usuarios Concurrentes</h3>
+                        <p class="report-subtitle">Fase Aceptable - Inicio de Saturación</p>
+                    </div>
+                </div>
+                <div class="report-stats">
+                    <div class="stat">
+                        <div class="stat-value">17.9</div>
+                        <div class="stat-label">TPS</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">9.16%</div>
+                        <div class="stat-label">Errores</div>
+                    </div>
+                </div>
+                <span class="status pass">Pass</span>
+            </a>
+            
+            <a href="36-usuarios/" class="report-card">
+                <div class="report-header">
+                    <div class="report-icon usuarios-36">🎯</div>
+                    <div>
+                        <h3 class="report-title">36 Usuarios Concurrentes</h3>
+                        <p class="report-subtitle">Sweet Spot - Punto Óptimo</p>
+                    </div>
+                </div>
+                <div class="report-stats">
+                    <div class="stat">
+                        <div class="stat-value">39.1</div>
+                        <div class="stat-label">TPS</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">0.96%</div>
+                        <div class="stat-label">Errores</div>
+                    </div>
+                </div>
+                <span class="status pass">Pass</span>
+            </a>
+            
+            <a href="48-usuarios/" class="report-card">
+                <div class="report-header">
+                    <div class="report-icon usuarios-48">⚠️</div>
+                    <div>
+                        <h3 class="report-title">48 Usuarios Concurrentes</h3>
+                        <p class="report-subtitle">Fase Límite - Inicio de Degradación</p>
+                    </div>
+                </div>
+                <div class="report-stats">
+                    <div class="stat">
+                        <div class="stat-value">35.4</div>
+                        <div class="stat-label">TPS</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">13.60%</div>
+                        <div class="stat-label">Errores</div>
+                    </div>
+                </div>
+                <span class="status warning">Pass*</span>
+            </a>
+            
+            <a href="60-usuarios/" class="report-card">
+                <div class="report-header">
+                    <div class="report-icon usuarios-60">🚨</div>
+                    <div>
+                        <h3 class="report-title">60 Usuarios Concurrentes</h3>
+                        <p class="report-subtitle">Fase Crítica - Sistema Saturado</p>
+                    </div>
+                </div>
+                <div class="report-stats">
+                    <div class="stat">
+                        <div class="stat-value">32.4</div>
+                        <div class="stat-label">TPS</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">30.30%</div>
+                        <div class="stat-label">Errores</div>
+                    </div>
+                </div>
+                <span class="status fail">Fail</span>
+            </a>
+        </div>
+        
+        <div class="summary-section">
+            <h2>🎯 Resultados TESTBBVA004</h2>
+            <div class="key-findings">
+                <div class="finding">
+                    <div class="finding-value">36</div>
+                    <div class="finding-label">Usuarios Concurrentes<br>Máximos Recomendados</div>
+                </div>
+                <div class="finding">
+                    <div class="finding-value">39.1</div>
+                    <div class="finding-label">TPS Máximo<br>Sostenible</div>
+                </div>
+                <div class="finding">
+                    <div class="finding-value">0.96%</div>
+                    <div class="finding-label">Tasa de Error<br>Óptima</div>
+                </div>
+                <div class="finding">
+                    <div class="finding-value">SQL</div>
+                    <div class="finding-label">Cuello de Botella<br>Principal</div>
+                </div>
+            </div>
+            
+            <div style="background: #e8f5e8; padding: 16px; border-radius: 6px; margin-top: 20px; border-left: 4px solid #2ecc71;">
+                <p style="margin: 0; font-size: 0.9em; color: #2c3e50;"><strong>💡 Conclusión:</strong> El script TAfterEnq demuestra excelente escalabilidad con un punto óptimo de 36 usuarios concurrentes. El sistema mantiene rendimiento estable hasta 48 usuarios, después experimenta degradación crítica. <strong>Sweet spot identificado: 36 usuarios (39.1 TPS, 0.96% error)</strong>.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
